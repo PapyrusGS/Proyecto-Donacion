@@ -28,6 +28,7 @@ app.get("/enfermeras", (req, res) => {
 });
 
 // Tipos de Sangre
+//si
 app.get("/tipossangre", (req, res) => {
     db.query("SELECT tipo, factor_rh FROM tipossangre", (err, results) => {
         if(err) res.status(500).json(err);
