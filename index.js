@@ -7,39 +7,38 @@ app.use(express.json());
 const conexion = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '252005will',
-    database: 'Donaciones'
+    password: '',
+    database: 'donaciones'
 });
 
-conexion.connect ((err) => {
- if (err){
-    throw err
- } else {
-    console.log ('Conexion exitosa');
-  }
-})
+conexion.connect((err) => {
+    if (err) {
+        throw err;
+    } else {
+        console.log('Conexion exitosa');
+    }
+});
 
 // Enfermeras
 app.get("/enfermeras", (req, res) => {
-    db.query("SELECT nombre, usuario FROM enfermeras", (err, results) => {
-        if(err) res.status(500).json(err);
+    conexion.query("SELECT nombre, usuario FROM enfermeras", (err, results) => {
+        if (err) res.status(500).json(err);
         else res.json(results);
     });
 });
 
 // Tipos de Sangre
-//si
 app.get("/tipossangre", (req, res) => {
-    db.query("SELECT tipo, factor_rh FROM tipossangre", (err, results) => {
-        if(err) res.status(500).json(err);
+    conexion.query("SELECT tipo, factor_rh FROM tipossangre", (err, results) => {
+        if (err) res.status(500).json(err);
         else res.json(results);
     });
 });
 
 // Estado Salud
 app.get("/estadosalud", (req, res) => {
-    db.query("SELECT estado FROM estadosalud", (err, results) => {
-        if(err) res.status(500).json(err);
+    conexion.query("SELECT estado FROM estadosalud", (err, results) => {
+        if (err) res.status(500).json(err);
         else res.json(results);
     });
 });
@@ -63,16 +62,16 @@ app.get("/donantes", (req, res) => {
         LEFT JOIN TiposSangre TS ON D.id_tipo_sangre = TS.id_tipo_sangre
         LEFT JOIN EstadoSalud ES ON D.id_estadoSalud = ES.id_estadoSalud
     `;
-    db.query(query, (err, results) => {
-        if(err) res.status(500).json(err);
+    conexion.query(query, (err, results) => {
+        if (err) res.status(500).json(err);
         else res.json(results);
     });
 });
 
 // Hospitales
 app.get("/hospitales", (req, res) => {
-    db.query("SELECT tipo, nombre, direccion, celular, director FROM hospitales", (err, results) => {
-        if(err) res.status(500).json(err);
+    conexion.query("SELECT tipo, nombre, direccion, celular, director FROM hospitales", (err, results) => {
+        if (err) res.status(500).json(err);
         else res.json(results);
     });
 });
@@ -94,16 +93,16 @@ app.get("/donaciones", (req, res) => {
         LEFT JOIN Donantes Don ON Do.id_donante = Don.id_donante
         LEFT JOIN Enfermeras E ON Do.id_enfermera = E.id_enfermera
     `;
-    db.query(query, (err, results) => {
-        if(err) res.status(500).json(err);
+    conexion.query(query, (err, results) => {
+        if (err) res.status(500).json(err);
         else res.json(results);
     });
 });
 
 // Organos
 app.get("/organos", (req, res) => {
-    db.query("SELECT nombre, descripcion FROM organos", (err, results) => {
-        if(err) res.status(500).json(err);
+    conexion.query("SELECT nombre, descripcion FROM organos", (err, results) => {
+        if (err) res.status(500).json(err);
         else res.json(results);
     });
 });
@@ -124,8 +123,8 @@ app.get("/detalledonacion", (req, res) => {
         LEFT JOIN Organos Org ON D.id_organo = Org.id_organo
         LEFT JOIN TiposSangre TS ON D.id_tipo_sangre = TS.id_tipo_sangre
     `;
-    db.query(query, (err, results) => {
-        if(err) return res.status(500).json(err);
+    conexion.query(query, (err, results) => {
+        if (err) return res.status(500).json(err);
         res.json(results);
     });
 });
@@ -144,8 +143,8 @@ app.get("/inventarioorganos", (req, res) => {
         LEFT JOIN Organos Org ON IO.id_organo = Org.id_organo
         LEFT JOIN Hospitales H ON IO.id_hospital = H.id_hospital
     `;
-    db.query(query, (err, results) => {
-        if(err) res.status(500).json(err);
+    conexion.query(query, (err, results) => {
+        if (err) res.status(500).json(err);
         else res.json(results);
     });
 });
@@ -166,12 +165,12 @@ app.get("/inventariosangre", (req, res) => {
         LEFT JOIN TiposSangre TS ON ISg.id_tipo_sangre = TS.id_tipo_sangre
         LEFT JOIN Hospitales H ON ISg.id_hospital = H.id_hospital
     `;
-    db.query(query, (err, results) => {
-        if(err) res.status(500).json(err);
+    conexion.query(query, (err, results) => {
+        if (err) res.status(500).json(err);
         else res.json(results);
     });
 });
 
-app.listen (puerto, () =>{
-    console.log('Servidor levantado');
-})
+app.listen(puerto, () => {
+    console.log('Servidor levantado en puerto ' + puerto);
+});
