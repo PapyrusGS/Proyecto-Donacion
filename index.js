@@ -172,5 +172,5 @@ app.get("/inventariosangre", (req, res) => {
 });
 
 app.listen (puerto, () =>{
-    console.log('Servidor levantado en el Puerto: '+ puerto);
+    console.log('Servidor levantado');
 })
