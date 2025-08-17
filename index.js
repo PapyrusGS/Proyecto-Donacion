@@ -101,7 +101,7 @@ app.get("/donaciones", (req, res) => {
 
 // Organos
 app.get("/organos", (req, res) => {
-    conexion.query("SELECT nombre, descripcion FROM organos", (err, results) => {
+    conexion.query("SELECT nombre FROM organos", (err, results) => {
         if (err) res.status(500).json(err);
         else res.json(results);
     });
