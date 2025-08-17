@@ -7,7 +7,7 @@ app.use(express.json());
 const conexion = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '252005will',
+    password: '',   //Poner la clave de su mysql server
     database: 'donaciones'
 });
 
@@ -19,31 +19,46 @@ conexion.connect((err) => {
     }
 });
 
-// Enfermeras
+// GET para la tabla ENFERMERAS
 app.get("/enfermeras", (req, res) => {
-    conexion.query("SELECT nombre, usuario FROM enfermeras", (err, results) => {
-        if (err) res.status(500).json(err);
-        else res.json(results);
-    });
+    let sql = "SELECT * FROM enfermeras";
+    conexion.query(sql,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
 });
 
-// Tipos de Sangre
+// GET para la tabla TIPOS DE SANGRE
 app.get("/tipossangre", (req, res) => {
-    conexion.query("SELECT tipo, factor_rh FROM tipossangre", (err, results) => {
-        if (err) res.status(500).json(err);
-        else res.json(results);
+    let sql = "SELECT * FROM tipossangre";
+    conexion.query(sql,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
     });
 });
 
-// Estado Salud
+// GET para el ESTADO DE SALUD
 app.get("/estadosalud", (req, res) => {
-    conexion.query("SELECT estado FROM estadosalud", (err, results) => {
-        if (err) res.status(500).json(err);
-        else res.json(results);
-    });
-});
+    let sql = "SELECT * FROM estadosalud";
+    conexion.query(sql,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
+})
 
-// Donantes
+// GET para la tabla DONANTES 
 app.get("/donantes", (req, res) => {
     const query = `
         SELECT 
@@ -62,21 +77,30 @@ app.get("/donantes", (req, res) => {
         LEFT JOIN TiposSangre TS ON D.id_tipo_sangre = TS.id_tipo_sangre
         LEFT JOIN EstadoSalud ES ON D.id_estadoSalud = ES.id_estadoSalud
     `;
-    conexion.query(query, (err, results) => {
-        if (err) res.status(500).json(err);
-        else res.json(results);
-    });
+    conexion.query(query,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
 });
 
-// Hospitales
+// GET para la tabla HOSPITALES
 app.get("/hospitales", (req, res) => {
-    conexion.query("SELECT tipo, nombre, direccion, celular, director FROM hospitales", (err, results) => {
-        if (err) res.status(500).json(err);
-        else res.json(results);
-    });
+    let sql = "SELECT * FROM hospitales";
+    conexion.query(sql,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
 });
 
-// Donaciones
+// GET para la tabla DONACIONES
 app.get("/donaciones", (req, res) => {
     const query = `
         SELECT 
@@ -93,21 +117,30 @@ app.get("/donaciones", (req, res) => {
         LEFT JOIN Donantes Don ON Do.id_donante = Don.id_donante
         LEFT JOIN Enfermeras E ON Do.id_enfermera = E.id_enfermera
     `;
-    conexion.query(query, (err, results) => {
-        if (err) res.status(500).json(err);
-        else res.json(results);
-    });
+    conexion.query(query,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
 });
 
-// Organos
+// GET para la tabla de ORGANOS
 app.get("/organos", (req, res) => {
-    conexion.query("SELECT nombre FROM organos", (err, results) => {
-        if (err) res.status(500).json(err);
-        else res.json(results);
-    });
+    let sql = "SELECT * FROM organos";
+    conexion.query(sql,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
 });
 
-// Detalle Donacion
+// GET para la tabla DETALLE DONACION
 app.get("/detalledonacion", (req, res) => {
     const query = `
         SELECT 
@@ -123,13 +156,17 @@ app.get("/detalledonacion", (req, res) => {
         LEFT JOIN Organos Org ON D.id_organo = Org.id_organo
         LEFT JOIN TiposSangre TS ON D.id_tipo_sangre = TS.id_tipo_sangre
     `;
-    conexion.query(query, (err, results) => {
-        if (err) return res.status(500).json(err);
-        res.json(results);
-    });
+    conexion.query(query,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
 });
 
-// Inventario Organos
+// GET para la tabla INVENTARIO DE ORGANOS
 app.get("/inventarioorganos", (req, res) => {
     const query = `
         SELECT 
@@ -143,13 +180,17 @@ app.get("/inventarioorganos", (req, res) => {
         LEFT JOIN Organos Org ON IO.id_organo = Org.id_organo
         LEFT JOIN Hospitales H ON IO.id_hospital = H.id_hospital
     `;
-    conexion.query(query, (err, results) => {
-        if (err) res.status(500).json(err);
-        else res.json(results);
-    });
+    conexion.query(query,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
 });
 
-// Inventario Sangre
+// GET para la tabla INVENTARIO DE SANGRE
 app.get("/inventariosangre", (req, res) => {
     const query = `
         SELECT 
@@ -165,10 +206,14 @@ app.get("/inventariosangre", (req, res) => {
         LEFT JOIN TiposSangre TS ON ISg.id_tipo_sangre = TS.id_tipo_sangre
         LEFT JOIN Hospitales H ON ISg.id_hospital = H.id_hospital
     `;
-    conexion.query(query, (err, results) => {
-        if (err) res.status(500).json(err);
-        else res.json(results);
-    });
+    conexion.query(query,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
 });
 
 app.listen(puerto, () => {
