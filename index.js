@@ -7,7 +7,7 @@ app.use(express.json());
 const conexion = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',   //Poner la clave de su mysql server
+    password: 'rosario',   //Poner la clave de su mysql server
     database: 'donaciones'
 });
 
@@ -21,7 +21,7 @@ conexion.connect((err) => {
 
 // GET para la tabla ENFERMERAS
 app.get("/enfermeras", (req, res) => {
-    let sql = "SELECT * FROM enfermeras";
+    let sql = "SELECT id_enfermera, nombre, usuario, contrasena FROM enfermeras";
     conexion.query(sql,(err,result) =>{
         if (err) {
             console.log('Error');
