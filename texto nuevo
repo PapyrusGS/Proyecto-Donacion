@@ -1,0 +1,11 @@
+app.get("/enfermeras", (req, res) => {
+    let sql = "SELECT * FROM enfermeras";
+    conexion.query(sql,(err,result) =>{
+        if (err) {
+            console.log('Error');
+            throw err;
+        } else {
+            res.json(result);
+        }
+    })
+});
