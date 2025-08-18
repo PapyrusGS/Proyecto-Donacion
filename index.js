@@ -89,7 +89,7 @@ app.get("/donantes", (req, res) => {
 
 // GET para la tabla HOSPITALES
 app.get("/hospitales", (req, res) => {
-    let sql = "SELECT * FROM hospitales";
+    let sql = "SELECT nombre FROM hospitales";
     conexion.query(sql,(err,result) =>{
         if (err) {
             console.log('Error');
