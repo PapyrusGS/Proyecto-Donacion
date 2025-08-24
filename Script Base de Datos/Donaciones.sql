@@ -290,7 +290,6 @@ DROP TABLE IF EXISTS `Organos`;
 CREATE TABLE `Organos` (
   `id_organo` int NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `descripcion` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_organo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -301,7 +300,7 @@ CREATE TABLE `Organos` (
 
 LOCK TABLES `Organos` WRITE;
 /*!40000 ALTER TABLE `Organos` DISABLE KEYS */;
-INSERT INTO `Organos` VALUES (1,'Riñón','Órgano vital encargado de filtrar la sangre'),(2,'Hígado','Órgano que metaboliza nutrientes y elimina toxinas'),(3,'Corazón','Órgano que bombea la sangre'),(4,'Pulmón','Órgano que oxigena la sangre');
+INSERT INTO `Organos` VALUES (1,'Riñón'),(2,'Hígado'),(3,'Corazón'),(4,'Pulmón');
 /*!40000 ALTER TABLE `Organos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,4 +338,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-23 20:25:14
+-- Dump completed on 2025-08-23 23:44:10
