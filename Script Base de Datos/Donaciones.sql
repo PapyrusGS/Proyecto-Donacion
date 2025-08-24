@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS `DetalleDonacion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `DetalleDonacion` (
-  `id_detalle` int NOT NULL AUTO_INCREMENT,
+  `id_detalle` int NOT NULL,
   `id_donacion` int NOT NULL,
   `id_organo` int DEFAULT NULL,
   `id_tipo_sangre` int DEFAULT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `DetalleDonacion` (
   CONSTRAINT `detalledonacion_ibfk_1` FOREIGN KEY (`id_donacion`) REFERENCES `Donaciones` (`id_donacion`),
   CONSTRAINT `detalledonacion_ibfk_2` FOREIGN KEY (`id_organo`) REFERENCES `Organos` (`id_organo`),
   CONSTRAINT `detalledonacion_ibfk_3` FOREIGN KEY (`id_tipo_sangre`) REFERENCES `TiposSangre` (`id_tipo_sangre`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,7 +52,7 @@ CREATE TABLE `DetalleDonacion` (
 
 LOCK TABLES `DetalleDonacion` WRITE;
 /*!40000 ALTER TABLE `DetalleDonacion` DISABLE KEYS */;
-INSERT INTO `DetalleDonacion` VALUES (1,1,1,NULL,1),(2,2,2,NULL,1),(3,3,3,NULL,1),(4,4,NULL,4,2),(5,5,NULL,5,1);
+INSERT INTO `DetalleDonacion` VALUES (1,1,NULL,1,2),(2,2,NULL,7,1),(3,3,3,NULL,1),(4,4,1,NULL,1);
 /*!40000 ALTER TABLE `DetalleDonacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ DROP TABLE IF EXISTS `Donaciones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Donaciones` (
-  `id_donacion` int NOT NULL AUTO_INCREMENT,
+  `id_donacion` int NOT NULL,
   `id_hospital` int NOT NULL,
   `id_donante` int NOT NULL,
   `id_enfermera` int NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE `Donaciones` (
   CONSTRAINT `donaciones_ibfk_1` FOREIGN KEY (`id_hospital`) REFERENCES `Hospitales` (`id_hospital`),
   CONSTRAINT `donaciones_ibfk_2` FOREIGN KEY (`id_donante`) REFERENCES `Donantes` (`id_donante`),
   CONSTRAINT `donaciones_ibfk_3` FOREIGN KEY (`id_enfermera`) REFERENCES `Enfermeras` (`id_enfermera`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `Donaciones` (
 
 LOCK TABLES `Donaciones` WRITE;
 /*!40000 ALTER TABLE `Donaciones` DISABLE KEYS */;
-INSERT INTO `Donaciones` VALUES (1,1,1,1,'Completada','Organo','2025-08-10','Donación exitosa de riñón izquierdo'),(2,1,2,2,'Completada','Organo','2025-08-11','Donación de hígado parcial'),(3,1,3,1,'Completada','Organo','2025-08-12','Donación de corazón'),(4,2,4,2,'Completada','Sangre','2025-08-13','Donación de sangre O+'),(5,2,5,1,'Completada','Sangre','2025-08-14','Donación de sangre AB-');
+INSERT INTO `Donaciones` VALUES (1,1,1,1,'Completada','Sangre','2025-08-01','Donación exitosa'),(2,2,2,2,'En Proceso','Sangre','2025-08-10','En análisis'),(3,3,3,3,'Rechazada','Organo','2025-08-15','Donante con problemas de salud'),(4,1,4,1,'Completada','Organo','2025-08-20','Riñón apto para trasplante');
 /*!40000 ALTER TABLE `Donaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `Donantes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Donantes` (
-  `id_donante` int NOT NULL AUTO_INCREMENT,
+  `id_donante` int NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `apellido` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE `Donantes` (
   KEY `id_estadoSalud` (`id_estadoSalud`),
   CONSTRAINT `donantes_ibfk_1` FOREIGN KEY (`id_tipo_sangre`) REFERENCES `TiposSangre` (`id_tipo_sangre`),
   CONSTRAINT `donantes_ibfk_2` FOREIGN KEY (`id_estadoSalud`) REFERENCES `EstadoSalud` (`id_estadoSalud`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +126,7 @@ CREATE TABLE `Donantes` (
 
 LOCK TABLES `Donantes` WRITE;
 /*!40000 ALTER TABLE `Donantes` DISABLE KEYS */;
-INSERT INTO `Donantes` VALUES (1,'Carlos','Fernández','carlos.fernandez@example.com','70123456','1234567',75,'1985-03-10',1,'Activo',3),(2,'Ana','Gutiérrez','ana.gutierrez@example.com','71234567','2345678',62.5,'1990-07-22',2,'Activo',4),(3,'Pedro','Mamani','pedro.mamani@example.com','72345678','3456789',80.2,'1978-11-15',3,'Activo',3),(4,'Lucía','Quispe','lucia.quispe@example.com','73456789','4567890',55,'1995-05-30',4,'Activo',1),(5,'José','Ramírez','jose.ramirez@example.com','74567890','5678901',68,'1988-09-18',5,'Activo',1);
+INSERT INTO `Donantes` VALUES (1,'Pedro','Gutiérrez','pgutierrez@gmail.com','76543211','1234567',72,'1990-05-14',1,'Activo',1),(2,'Lucía','Ramírez','lramirez@gmail.com','70123457','2345678',65,'1985-10-23',7,'Activo',1),(3,'Carlos','Fernández','cfernandez@gmail.com','78945613','3456789',80,'1992-02-10',3,'Inactivo',2),(4,'Sofía','Pérez','sperez@gmail.com','76543212','4567890',55,'1998-07-30',5,'Activo',1);
 /*!40000 ALTER TABLE `Donantes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,13 +138,13 @@ DROP TABLE IF EXISTS `Enfermeras`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Enfermeras` (
-  `id_enfermera` int NOT NULL AUTO_INCREMENT,
+  `id_enfermera` int NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `contrasena` varchar(100) NOT NULL,
   PRIMARY KEY (`id_enfermera`),
   UNIQUE KEY `usuario` (`usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +153,7 @@ CREATE TABLE `Enfermeras` (
 
 LOCK TABLES `Enfermeras` WRITE;
 /*!40000 ALTER TABLE `Enfermeras` DISABLE KEYS */;
-INSERT INTO `Enfermeras` VALUES (1,'Andrea Rojas','arojas','1234'),(2,'Luis Vargas','lvargas','1234');
+INSERT INTO `Enfermeras` VALUES (1,'Laura Martínez','lmartinez','12345'),(2,'Ana López','alopez','12345'),(3,'María Fernández','mfernandez','12345');
 /*!40000 ALTER TABLE `Enfermeras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,10 +165,10 @@ DROP TABLE IF EXISTS `EstadoSalud`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `EstadoSalud` (
-  `id_estadoSalud` int NOT NULL AUTO_INCREMENT,
+  `id_estadoSalud` int NOT NULL,
   `estado` varchar(20) NOT NULL,
   PRIMARY KEY (`id_estadoSalud`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,14 +189,14 @@ DROP TABLE IF EXISTS `Hospitales`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Hospitales` (
-  `id_hospital` int NOT NULL AUTO_INCREMENT,
+  `id_hospital` int NOT NULL,
   `tipo` varchar(50) DEFAULT NULL,
   `nombre` varchar(150) NOT NULL,
   `direccion` varchar(200) DEFAULT NULL,
   `celular` varchar(20) DEFAULT NULL,
   `director` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_hospital`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,7 +205,7 @@ CREATE TABLE `Hospitales` (
 
 LOCK TABLES `Hospitales` WRITE;
 /*!40000 ALTER TABLE `Hospitales` DISABLE KEYS */;
-INSERT INTO `Hospitales` VALUES (1,'Hospital','Hospital General La Paz','Av. Arce #123','22223333','Dr. Juan Pérez'),(2,'Banco de Sangre','Banco de Sangre Central','Av. 16 de Julio #456','22445566','Dra. María López');
+INSERT INTO `Hospitales` VALUES (1,'Hospital','Hospital General La Paz','Av. Arce #123','76543210','Dr. Juan Pérez'),(2,'Banco de Sangre','Banco de Sangre Central','Calle Bolívar #456','70123456','Dra. María López'),(3,'Hospital','Clínica del Sur','Av. Ballivián #789','78945612','Dr. Carlos Ruiz');
 /*!40000 ALTER TABLE `Hospitales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +217,7 @@ DROP TABLE IF EXISTS `InventarioOrganos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `InventarioOrganos` (
-  `id_inventario` int NOT NULL AUTO_INCREMENT,
+  `id_inventario` int NOT NULL,
   `id_organo` int NOT NULL,
   `id_hospital` int NOT NULL,
   `id_donacion` int NOT NULL,
@@ -231,7 +231,7 @@ CREATE TABLE `InventarioOrganos` (
   CONSTRAINT `inventarioorganos_ibfk_1` FOREIGN KEY (`id_organo`) REFERENCES `Organos` (`id_organo`),
   CONSTRAINT `inventarioorganos_ibfk_2` FOREIGN KEY (`id_hospital`) REFERENCES `Hospitales` (`id_hospital`),
   CONSTRAINT `inventarioorganos_ibfk_3` FOREIGN KEY (`id_donacion`) REFERENCES `Donaciones` (`id_donacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +240,7 @@ CREATE TABLE `InventarioOrganos` (
 
 LOCK TABLES `InventarioOrganos` WRITE;
 /*!40000 ALTER TABLE `InventarioOrganos` DISABLE KEYS */;
-INSERT INTO `InventarioOrganos` VALUES (1,1,1,1,'2025-08-10','2025-08-20','Disponible'),(2,2,1,2,'2025-08-11','2025-08-18','Disponible'),(3,3,1,3,'2025-08-12','2025-08-15','Reservado');
+INSERT INTO `InventarioOrganos` VALUES (1,1,1,4,'2025-08-20','2025-09-05','Disponible'),(2,3,3,3,'2025-08-15','2025-08-25','Descartado');
 /*!40000 ALTER TABLE `InventarioOrganos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +252,7 @@ DROP TABLE IF EXISTS `InventarioSangre`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `InventarioSangre` (
-  `id_inventario` int NOT NULL AUTO_INCREMENT,
+  `id_inventario` int NOT NULL,
   `id_tipo_sangre` int NOT NULL,
   `id_hospital` int NOT NULL,
   `id_donacion` int NOT NULL,
@@ -267,7 +267,7 @@ CREATE TABLE `InventarioSangre` (
   CONSTRAINT `inventariosangre_ibfk_1` FOREIGN KEY (`id_tipo_sangre`) REFERENCES `TiposSangre` (`id_tipo_sangre`),
   CONSTRAINT `inventariosangre_ibfk_2` FOREIGN KEY (`id_hospital`) REFERENCES `Hospitales` (`id_hospital`),
   CONSTRAINT `inventariosangre_ibfk_3` FOREIGN KEY (`id_donacion`) REFERENCES `Donaciones` (`id_donacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,7 +276,7 @@ CREATE TABLE `InventarioSangre` (
 
 LOCK TABLES `InventarioSangre` WRITE;
 /*!40000 ALTER TABLE `InventarioSangre` DISABLE KEYS */;
-INSERT INTO `InventarioSangre` VALUES (1,4,2,4,2,'2025-08-13','2025-09-13','Disponible'),(2,5,2,5,1,'2025-08-14','2025-09-14','Disponible');
+INSERT INTO `InventarioSangre` VALUES (1,1,1,1,2,'2025-08-01','2025-09-01','Disponible'),(2,7,2,2,1,'2025-08-10','2025-09-10','Usada');
 /*!40000 ALTER TABLE `InventarioSangre` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,10 +288,11 @@ DROP TABLE IF EXISTS `Organos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Organos` (
-  `id_organo` int NOT NULL AUTO_INCREMENT,
+  `id_organo` int NOT NULL,
   `nombre` varchar(100) NOT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_organo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +301,7 @@ CREATE TABLE `Organos` (
 
 LOCK TABLES `Organos` WRITE;
 /*!40000 ALTER TABLE `Organos` DISABLE KEYS */;
-INSERT INTO `Organos` VALUES (1,'Riñón'),(2,'Hígado'),(3,'Corazón');
+INSERT INTO `Organos` VALUES (1,'Riñón','Órgano vital encargado de filtrar la sangre'),(2,'Hígado','Órgano que metaboliza nutrientes y elimina toxinas'),(3,'Corazón','Órgano que bombea la sangre'),(4,'Pulmón','Órgano que oxigena la sangre');
 /*!40000 ALTER TABLE `Organos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,11 +313,11 @@ DROP TABLE IF EXISTS `TiposSangre`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `TiposSangre` (
-  `id_tipo_sangre` int NOT NULL AUTO_INCREMENT,
+  `id_tipo_sangre` int NOT NULL,
   `tipo` varchar(3) NOT NULL,
   `factor_rh` char(1) NOT NULL,
   PRIMARY KEY (`id_tipo_sangre`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -325,7 +326,7 @@ CREATE TABLE `TiposSangre` (
 
 LOCK TABLES `TiposSangre` WRITE;
 /*!40000 ALTER TABLE `TiposSangre` DISABLE KEYS */;
-INSERT INTO `TiposSangre` VALUES (1,'A','+'),(2,'A','-'),(3,'B','+'),(4,'O','+'),(5,'AB','-');
+INSERT INTO `TiposSangre` VALUES (1,'A','+'),(2,'A','-'),(3,'B','+'),(4,'B','-'),(5,'AB','+'),(6,'AB','-'),(7,'O','+'),(8,'O','-');
 /*!40000 ALTER TABLE `TiposSangre` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -338,4 +339,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-17 17:15:13
+-- Dump completed on 2025-08-23 20:25:14
