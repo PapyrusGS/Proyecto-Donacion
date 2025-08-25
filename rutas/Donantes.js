@@ -4,22 +4,7 @@ const { conexion } = require('./Configuracion/conexion');
 
 router.get("/donantes", (req, res) => {
     const query = `
-        SELECT 
-            D.id_donante,
-            D.nombre,
-            D.apellido,
-            D.email,
-            D.celular,
-            D.ci,
-            D.peso,
-            D.fecha_nacimiento,
-            TS.tipo AS TipoSangre,
-            TS.factor_rh AS FactorRH,
-            D.estado_donante,
-            ES.estado AS EstadoSalud
-        FROM Donantes D
-        LEFT JOIN TiposSangre TS ON D.id_tipo_sangre = TS.id_tipo_sangre
-        LEFT JOIN EstadoSalud ES ON D.id_estadoSalud = ES.id_estadoSalud
+        SELECT id_donante, nombre, apellido, email, celular, ci, peso, fecha_nacimiento, estado_donante FROM Donantes
     `;
     conexion.query(query, (err, result) => {
         if (err) {
