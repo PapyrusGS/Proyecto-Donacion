@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { conexion } = require('./Configuracion/conexion');
 
-router.get("/inventario", (req, res) => {
+router.get("/inventariosangre", (req, res) => {
     const query = `
         SELECT 
             I.id_inventario,
@@ -28,7 +28,7 @@ router.get("/inventario", (req, res) => {
     });
 });
 
-router.post("/inventario", (req, res) => {
+router.post("/inventariosangre", (req, res) => {
     let sqlMax = "SELECT IFNULL(MAX(id_inventario), 0) AS maxId FROM InventarioSangre";
     conexion.query(sqlMax, (err, result) => {
         if (err) return res.status(500).json({ mensaje: "Error al generar ID" });
@@ -55,7 +55,7 @@ router.post("/inventario", (req, res) => {
     });
 });
 
-router.put("/inventario/:id", (req, res) => {
+router.put("/inventariosangre/:id", (req, res) => {
     let id = req.params.id;
     let { id_tipo_sangre, id_hospital, id_donacion, cantidad, fecha_ingreso, fecha_vencimiento, estado } = req.body;
 
@@ -72,7 +72,7 @@ router.put("/inventario/:id", (req, res) => {
     });
 });
 
-router.delete("/inventario/:id", (req, res) => {
+router.delete("/inventariosangre/:id", (req, res) => {
     let id = req.params.id;
     let sql = "DELETE FROM InventarioSangre WHERE id_inventario = ?";
 
