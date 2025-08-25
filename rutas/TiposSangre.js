@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { conexion } = require('./Configuracion/conexion');
 
-app.get("/tipossangre", (req, res) => {
+router.get("/tipossangre", (req, res) => {
 
     let sql = "SELECT * FROM tipossangre";
 

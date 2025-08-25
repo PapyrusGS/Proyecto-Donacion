@@ -3,7 +3,7 @@ const router = express.Router();
 const { conexion } = require('./Configuracion/conexion');
 
 
-app.get("/organos", (req, res) => {
+router.get("/organos", (req, res) => {
 
     let sql = "SELECT * FROM organos";
 
